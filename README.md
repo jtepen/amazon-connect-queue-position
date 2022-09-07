@@ -10,5 +10,3 @@ Eg, "Thanks for waiting, you are the number x caller in the queue."
 3. Create a CloudFormation Stack using the template [deployment/amazon-connect-queue-position.template.json](https://github.com/danieljandey/amazon-connect-queue-position/blob/main/deployment/amazon-connect-queue-position.template.json)
 4. Add the Lambda function under your Amazon Connect Instance (Amazon Connect -> Contact Flows -> AWS Lambda)
 5. Upload the flows as through the console or CLI as instructed in [deployment/contact-flows/README.md](https://github.com/danieljandey/amazon-connect-queue-position/blob/main/deployment/contact-flows/README.md)
-
-<meta name="google-site-verification" content="tlTI1u5mU0y9WHf48vrxNcPv1BQeMbYWY0QnqMW4hvg" />
