@@ -1,10 +1,10 @@
 from aws_cdk import (
     CfnParameter,
     RemovalPolicy, 
-    Stack
-    aws_dynamodb as dynamodb
-    aws_iam as iam
-    aws_lambda as _lambda
+    Stack,
+    aws_dynamodb as dynamodb,
+    aws_iam as iam,
+    aws_lambda as _lambda,
     aws_s3 as s3
 )
 
