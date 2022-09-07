@@ -1,7 +1,5 @@
 # Amazon Connect Queue Position Solution
 
-## Description
-
 This solution allows you to keep track of each contact's position in the queue, and use this information to play a message while they are waiting in the queue.
 
 Eg, "Thanks for waiting, you are the number x caller in the queue."
