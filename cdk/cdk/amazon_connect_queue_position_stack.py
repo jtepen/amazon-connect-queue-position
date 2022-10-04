@@ -20,17 +20,17 @@ class AmazonConnectQueuePosition(Stack):
 
         amazon_connect_id = CfnParameter(
             self,
-            id="amazon-connect-id-param",
+            id="amazonConnectId",
             default="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
             min_length=36,
         )
 
         s3_bucket_name = CfnParameter(
-            self, id="deployment-s3-bucket", default="deployment-bucket", min_length=1
+            self, id="deploymentBucket", default="deployment-bucket", min_length=1
         )
 
         deployment_lambda = CfnParameter(
-            self, id="deployment-lambda-key", default="lambda.zip", min_length=1
+            self, id="lambdaKey", default="lambda.zip", min_length=1
         )
 
         self.template_options.metadata = {
