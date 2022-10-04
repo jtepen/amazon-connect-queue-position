@@ -18,11 +18,13 @@ https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
 1. Lambda Function + Role & Policy
 2. DynamoDB Table
 
-## Synth
+## Deploy
 
-Use the following command to synthesise the Stack, or use the pre-generated CloudFormation Template.
+Use the following command to deploy the Stack, or use the pre-generated CloudFormation Template.
 
 ```
-cdk synth -c account_id=x -c region=ap-southeast-2 --parameters deploymentBucket=x --parameters lambdaKey=lambda.zip --parameters amazonConn
-ectId=x
+cdk deploy -c account_id=x -c region=ap-southeast-2 \
+--parameters deploymentBucket=deployment_bucket \ 
+--parameters lambdaKey=lambda.zip \
+--parameters amazonConnectId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
