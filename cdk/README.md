@@ -23,5 +23,6 @@ https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
 Use the following command to synthesise the Stack, or use the pre-generated CloudFormation Template.
 
 ```
-cdk synth -c account="123456789123" -c region="ap-southeast-2"
+cdk synth -c account_id=x -c region=ap-southeast-2 --parameters deploymentBucket=x --parameters lambdaKey=lambda.zip --parameters amazonConn
+ectId=x
 ```
