@@ -1,27 +1,28 @@
 import os
 import time
 import boto3
+from boto3.dynamodb.conditions import Key, Attr
 
 def add_to_queue(contact_id, queue_name):
-    dynamodb = boto3.resource('dynamodb', region_name=os.environ['QUEUE_REGION'])
-    table = dynamodb.Table(os.environ['QUEUE_TABLE'])
-    table.put_item(
-        Item={
-            "contact_id": contact_id,
-            "queue_name":  queue_name,
-            "queue_started_time": str(round(time.time())),
-            "queue_last_updated_time": str(round(time.time())),
-        },
-    )
-    return True
+    print(contact_id)
+    print(queue_name)
+    dynamodb = boto3.resource('dynamodb')
+    #table = dynamodb.Table(os.environ['QUEUE_TABLE'])
+    table = dynamodb.Table("amazon-connect-queue-position")
+    table.put_item(Item={"contact_id": contact_id,"stored_time": round(time.time()),"queue_last_updated_time": str(round(time.time())),"queue_name":  queue_name,"queue_started_time": str(round(time.time())),})
+    return { "statusCode": 200 }
 
 def update_last_updated(contact_id):
-    dynamodb = boto3.resource('dynamodb', region_name=os.environ['QUEUE_REGION'])
+    print(contact_id)
+    dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(os.environ['QUEUE_TABLE'])
+    response = table.query(KeyConditionExpression=Key('contact_id').eq(contact_id))
+    stored_time = response['Items'][0]['stored_time']
     table.update_item(
-        TableName=os.environ['QUEUE_TABLE'],
+        #TableName=os.environ['QUEUE_TABLE'],
         Key={
-            'contact_id': contact_id
+            'contact_id': contact_id,
+            'stored_time': stored_time
         },
         UpdateExpression="set queue_last_updated_time = :queue_last_updated_time_value",
         ExpressionAttributeValues={
@@ -34,15 +35,22 @@ def update_last_updated(contact_id):
 def remove_contact_from_queue(contact_id):
     dynamodb = boto3.resource('dynamodb', region_name=os.environ['QUEUE_REGION'])
     table = dynamodb.Table(os.environ['QUEUE_TABLE'])
+    response = table.query(KeyConditionExpression=Key('contact_id').eq(contact_id))
+    stored_time = response['Items'][0]['stored_time']
+    print(stored_time)
+    print(response['Items'])
     table.delete_item(
         TableName=os.environ['QUEUE_TABLE'],
         Key={
-        'contact_id': contact_id
+        'contact_id': contact_id,
+        'stored_time': stored_time
         }
     )
+    return { "statusCode": 200 }
     
 def get_queue_position(contact_id, queue_name):
-    dynamodb = boto3.client('dynamodb', region_name=os.environ['QUEUE_REGION'])
+    print("made it to get_queue_position")
+    dynamodb = boto3.client('dynamodb')
     update_last_updated(contact_id)
     
     operation_parameters = {
